@@ -79,12 +79,12 @@ function App() {
           <label>Student</label>
           <input type='checkbox' onChange={handleStudent} checked={formData.isStudent}/>
         </div>
-        {/* <div>
+        <div>
           <label >Student</label>
-          <input type='radio' />
+          <input type='radio' checked/>
           <label >Teacher</label>
-          <input type='radio' />
-        </div> */}
+          <input type='radio' checked={false}/>
+        </div>
         <button type="submit" style={{width:"10%"}}>Submit</button>
       </form>
 
