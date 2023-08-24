@@ -59,6 +59,7 @@ function App() {
           color: "white",
           display: "flex",
           flexDirection: "column",
+          alignItems:"center"
         }}>
         <label htmlFor='name'>Name </label>
         <input value={formData.name} onChange={(e)=>{
@@ -84,7 +85,7 @@ function App() {
           <label >Teacher</label>
           <input type='radio' />
         </div> */}
-        <button type="submit">Submit</button>
+        <button type="submit" style={{width:"10%"}}>Submit</button>
       </form>
 
       {/* <Navbar />
