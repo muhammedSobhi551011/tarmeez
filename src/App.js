@@ -5,116 +5,62 @@ import { useState } from "react";
 // import Tags from "./components/Tags";
 
 function App() {
-  // const postsData = [
-  //   {
-  //     name: "Lorem ipsum",
-  //     id: 1,
-  //     body: "dolor sit amet consectetur adipisicing elit. Minima inventore aut aspernatur reiciendis, optio soluta voluptatem est possimus vel nobis eligendi nam, doloribus error repellat adipisci voluptate, eos cum dolorum.",
-  //     comments: 4,
-  //   },
-  //   {
-  //     name: "Github",
-  //     id: 2,
-  //     body: "inventore aut aspernatur reiciendis, optio soluta voluptatem est possimus vel nobis eligendi nam, doloribus error repellat adipisci voluptate, eos cum dolorum.",
-  //     comments: 5,
-  //   },
-  //   {
-  //     name: "Ldfgoremsdffsg ipsudsasm",
-  //     id: 3,
-  //     body: "dolor sit amet consectetur adipisicing elit. Minima inventore aut aspernatur reiciendis, optio soluta voluptatem est possimus vel nobis eligendi nam, doloribus error repellat adipisci voluptate, eos cum dolorum.",
-  //     comments: 1,
-  //   },
-  //   {
-  //     name: "Lasddforasfegfm iphjsum",
-  //     id: 4,
-  //     body: "dolor sit amet consectetur adipisicing elit. Minima inventore aut aspernatur reiciendis, optio soluta voluptatem est possimus vel nobis eligendi nam, doloribus error repellat adipisci voluptate, eos cum dolorum.",
-  //     comments: 0,
-  //   },
-  //   {
-  //     name: "Ldfghsforem ihfghjpsum",
-  //     id: 5,
-  //     body: "dolor sit amet consectetur adipisicing elit. Minima inventore aut aspernatur reiciendis, optio soluta voluptatem est possimus vel nobis eligendi nam, doloribus error repellat adipisci voluptate, eos cum dolorum.",
-  //     comments: 2,
-  //   },
-  // ];
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    type: "",
-    isStudent: false,
-    hobby: [],
+  const [devices, setDevices] = useState([
+    { id: 0, name: "Iphone" },
+    { id: 1, name: "Mac" },
+    { id: 2, name: "Samsung" },
+    { id: 3, name: "Linux" },
+  ]);
+  const [inputDeviceName, setInputDeviceName] = useState("");
+  const lis = devices.map((device, i) => {
+    device.id = i;
+    return (
+      <li key={device.id}>
+        {" "}
+        {device.name}{" "}
+        <button type='button' id={device.id} onClick={handleDeleteDevice}>
+          Delete
+        </button>{" "}
+        <button type="button" id={device.id} onClick={handleEditButton}>Edit</button>
+      </li>
+    );
   });
-  function handleStudent(e) {
-    setFormData({
-      ...formData,
-      isStudent: e.target.checked,
-    });
+  const handleInputDevice = () => {
+    setDevices([...devices, { name: inputDeviceName }]);
+    setInputDeviceName("");
+  };
+  function handleDeleteDevice(e) {
+    const newDevices = [...devices].filter(device => {
+      return device.id !== Number(e.target.id)
+    })
+    setDevices(newDevices)
+  }
+  function handleEditButton(e){
+    const newDevices = devices.map (device =>{
+      if (device.id === Number(e.target.id)){
+        return {...device, name: device.name+" Lol"}
+      }else{
+        return device
+      }
+    })
+    setDevices(newDevices)
   }
   return (
-    <div className={"App"}>
-      <form
-        action=''
-        style={{
-          padding: "100px",
-          color: "white",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}>
-        <label htmlFor='name'>Name </label>
+    <div className='App'>
+      <ul>{lis}</ul>
+      <label></label>
+      <div>
         <input
-          value={formData.name}
+          value={inputDeviceName}
           onChange={(e) => {
-            setFormData({
-              ...formData,
-              name: e.target.value,
-            });
+            setInputDeviceName(e.target.value);
           }}
-          type='text'
-          name='name'
-          id='name'
+          type={"text"}
         />
-        <label htmlFor='email'>Email </label>
-        <input
-          value={formData.email}
-          onChange={(e) => {
-            setFormData({
-              ...formData,
-              email: e.target.value,
-            });
-          }}
-          type='email'
-          name='email'
-          id='email'
-        />
-        <div>
-          <label>Student</label>
-          <input
-            type='checkbox'
-            onChange={handleStudent}
-            checked={formData.isStudent}
-          />
-        </div>
-        {/* <div>
-          <label >Student</label>
-          <input type='radio' />
-          <label >Teacher</label>
-          <input type='radio' />
-        </div> */}
-        <button type='submit' style={{ width: "10%" }}>
-          Submit
+        <button type={"button"} onClick={handleInputDevice}>
+          Add
         </button>
-      </form>
-
-      {/* <Navbar />
-      <div className={"main"}>
-        <div className={"cards"}>
-          {postsData.map((post,index)=>(
-            <Card key={index} postData={post}/>
-          ))}
-        </div>
-        <Tags/>
-      </div> */}
+      </div>
     </div>
   );
 }
